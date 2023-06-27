@@ -1,37 +1,46 @@
-.btn {
-  background-color: #248bf5;
-  color: white;
-  padding: 0.4em;
-  border: none;
-  border-radius: 0.2rem;
-}
-
-input[type="text" i] {
-  padding: 0.3em;
-}
-
-.nick {
-  font-weight: bold;
-}
-
-#chat-area {
-  background-color: #fff;
-  border: 1px solid #e5e5ea;
-  border-radius: 0.25rem;
+#tabs {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
-  padding: 0.5rem;
+  flex-wrap: nowrap;
+  justify-content: left;
+  margin-bottom: 2px;
+  overflow-x: scroll;
 }
 
-.msg {
-  border-radius: 1.15rem;
-  line-height: 1.25;
-  padding: 0.5rem 0.875rem;
-  margin: 0.1rem;
-  position: relative;
-  word-wrap: break-word;
+#tabs .sticker {
+  min-width: 50px;
+  width: 50px;
+  max-width: 100%;
+}
+
+#picker {
+  display: flex;
+  flex-direction: row;
   align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+#picker .sticker {
+  border-radius: 8px;
+  background-color: #f4f4f6;
+}
+
+#tabs .selected {
+  border-radius: 8px;
   background-color: #e5e5ea;
-  color: #000;
+}
+
+#tabs .btn {
+  border-radius: 8px;
+  background-color: #e5e5ea;
+}
+
+.sticker {
+  width: 100px;
+  max-width: 22%;
+  height: auto;
+  padding: 1.6px;
+  margin: 1.6px;
+  cursor: pointer;
 }

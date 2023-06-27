@@ -8,28 +8,10 @@
     <link rel="stylesheet" href="./css/main.css" />
   </head>
   <body>
-    <h1>Chat</h1>
-    <form>
-      <input
-        id="input"
-        type="text"
-        autocomplete="off"
-        placeholder="Message"
-        autofocus
-      />
-      <input
-        class="btn"
-        type="submit"
-        onclick="sendMsg(); return false;"
-        value="Send"
-      />
-    </form>
-    <p id="chat-area"></p>
-    <p>
-      <em><small id="deviceName"></small></em>
-    </p>
-    <script src="./js/main.js" type="module"></script>
+    <div id="tabs"></div>
+    <div id="picker"></div>
 
+    <script src="./js/main.js" type="module"></script>
     <!-- Uncomment to include developer tools in your webxdc to debug it inside Delta Chat -->
     <!--
              <script type="module">

@@ -1,3 +1,15 @@
+import "@lottiefiles/lottie-player/dist/tgs-player.js";
+import {
+  getSelectedPack,
+  setSelectedPack,
+  importPack,
+  getPacks,
+  getStickers,
+} from "./pack.js";
+
+const tabs = document.getElementById("tabs");
+const picker = document.getElementById("picker");
+
 function h(tag, attributes, ...children) {
   const element = document.createElement(tag);
   if (attributes) {
@@ -9,37 +21,77 @@ function h(tag, attributes, ...children) {
   return element;
 }
 
-window.sendMsg = () => {
-  let msg = document.getElementById("input").value;
-  let info = window.webxdc.selfName + ": " + msg;
-  document.getElementById("input").value = "";
-
-  // send new updates
-  window.webxdc.sendUpdate(
-    {
-      payload: {
-        name: window.webxdc.selfName,
-        msg,
-      },
-      info,
-    },
-    info
+function shareSticker(sticker) {
+  const data_start = ";base64,";
+  const data = sticker.url.slice(
+    sticker.url.indexOf(data_start) + data_start.length
   );
-};
-
-window.onload = () => {
-  // handle past and future state updates
-  window.webxdc.setUpdateListener(function (update) {
-    const chat = document.getElementById("chat-area");
-    chat.append(
-      h(
-        "p",
-        { class: "msg" },
-        h("span", { class: "nick" }, update.payload.name, ": "),
-        update.payload.msg
-      )
-    );
+  webxdc.sendToChat({
+    file: { type: "sticker", base64: data, name: sticker.name },
   });
+}
 
-  window.deviceName.innerHTML = "You are: " + window.webxdc.selfName;
+function newSticker(name, src, onclick) {
+  let sticker;
+  if (name.endsWith(".tgs")) {
+    sticker = h("tgs-player", {
+      class: "sticker",
+      hover: "",
+      loop: "",
+      count: 1,
+      mode: "normal",
+      src: src,
+    });
+    sticker.ontouchstart = () => {
+      sticker.play();
+    };
+  } else {
+    sticker = h("img", { class: "sticker", src: src });
+  }
+  if (onclick) {
+    sticker.onclick = onclick;
+  }
+  return sticker;
+}
+
+async function reloadTabs() {
+  picker.innerHTML = "";
+  tabs.innerHTML = "";
+  const packs = await getPacks();
+  const selectedPack = (await getSelectedPack()) || (packs[0] && packs[0].id);
+  for (const pack of packs) {
+    const thumbnail = newSticker(pack.preview.name, pack.preview.url);
+    if (pack.id == selectedPack) {
+      thumbnail.classList.add("selected");
+      const stickers = await getStickers(pack.id);
+      for (const sticker of stickers) {
+        picker.append(
+          newSticker(sticker.name, sticker.url, () => {
+            shareSticker(sticker);
+          })
+        );
+      }
+    } else {
+      thumbnail.onclick = async () => {
+        await setSelectedPack(pack.id);
+        await reloadTabs();
+      };
+    }
+    tabs.append(thumbnail);
+  }
+  const addBtn = newSticker("add.svg", "./add.svg", onAddClicked);
+  addBtn.classList.add("btn");
+  tabs.append(addBtn);
+}
+
+async function onAddClicked() {
+  const files = await webxdc.importFiles({ multiple: true });
+  for (const file of files) {
+    await importPack(file);
+  }
+  reloadTabs();
+}
+
+window.onload = async () => {
+  await reloadTabs();
 };

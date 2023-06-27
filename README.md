@@ -1,21 +1,8 @@
-# WebXDC Vite Template [![CI](https://github.com/webxdc/webxdc-vite/actions/workflows/ci.yml/badge.svg)](https://github.com/webxdc/webxdc-vite/actions/workflows/ci.yml) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+# StickerPicker [![CI](https://github.com/adbenitez/StickerPicker/actions/workflows/ci.yml/badge.svg)](https://github.com/adbenitez/StickerPicker/actions/workflows/ci.yml) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-A minimalist Vite project template for WebXDC development.
+A simple sticker picker for DeltaLab.
 
-## Features
-
-- ⚡️ Fast development with [Vite](https://github.com/vitejs/vite) and [pnpm](https://pnpm.js.org/)
-
-- 📱 Integrated [WebXDC emulator](https://github.com/webxdc/webxdc-dev) to test your WebXDC right on the browser while developing,
-  and [Eruda](https://github.com/liriliri/eruda) to debug inside Delta Chat.
-
-- ✅ Use [Vitest](http://vitest.dev/) for unit testing
-
-- 📝 Code formatting with [Prettier](https://github.com/prettier/prettier)
-
-- 📦 Automatically minify, build and release your `.xdc` file
-
-## Usage
+## Developing
 
 ### Installing Dependencies
 
@@ -46,13 +33,13 @@ npm run dev
 
 ### Building
 
-To package your WebXDC file:
+To package the WebXDC file:
 
 ```
 pnpm build
 ```
 
-The resulting optimized `.xdc` file is saved in `dist/` folder.
+The resulting optimized `.xdc` file is saved in `dist-xdc/` folder.
 
 ### Releasing
 
@@ -63,6 +50,6 @@ git tag v1.0.1
 git push origin v1.0.1
 ```
 
-## Try it now!
+## Credits
 
-[**Create a repo from this template on GitHub**](https://github.com/webxdc/webxdc-vite/generate).
+The app icon is a modified version of an image taken from: <a href="https://www.flaticon.com/free-icons/sticker" title="sticker icons">Sticker icons created by Freepik - Flaticon</a>
