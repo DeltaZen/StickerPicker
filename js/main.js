@@ -24,7 +24,7 @@ function h(tag, attributes, ...children) {
 function shareSticker(sticker) {
   const data_start = ";base64,";
   const data = sticker.url.slice(
-    sticker.url.indexOf(data_start) + data_start.length
+    sticker.url.indexOf(data_start) + data_start.length,
   );
   webxdc.sendToChat({
     file: { type: "sticker", base64: data, name: sticker.name },
@@ -68,7 +68,7 @@ async function reloadTabs() {
         picker.append(
           newSticker(sticker.name, sticker.url, () => {
             shareSticker(sticker);
-          })
+          }),
         );
       }
     } else {

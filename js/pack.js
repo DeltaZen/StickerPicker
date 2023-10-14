@@ -34,7 +34,7 @@ export async function importPack(file) {
       packName = packName || zipObj.name.split("/")[0] || file.name;
       await importSticker(
         packName,
-        new File([blob], zipObj.name.split("/").pop())
+        new File([blob], zipObj.name.split("/").pop()),
       );
     }
   } else {
